@@ -75,11 +75,20 @@ server.post('/actions', (req, res) => {
 });
 
 server.get('/projects/:id', (req, res) => {
-    
+    const id = req.params.id;
+    database.get(id)
+    .then(project => {
+        res.status(200).json(project)
+    })
+    .catch(err => {
+        res.status(500).json({
+            errorMessage: 'unable to retrieve list of projects actions'
+        })
+    })
 });
 
 server.delete('/projects/:id', (req, res) => {
-    const {id} = req.params;
+    const id = req.params.id;
     database.remove(id)
     .then(deleted => {
         if (deleted) {
