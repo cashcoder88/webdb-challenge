@@ -3,6 +3,8 @@ const server = express();
 server.use(express.json());
 
 
+const database = require('./db-model');
+
 server.post('/projects', (req, res) => {
     
 });
