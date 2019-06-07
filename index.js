@@ -48,6 +48,27 @@ server.get('/projects/:id', (req, res) => {
     
 });
 
+server.delete('/projects/:id', (req, res) => {
+    const {id} = req.params;
+    database.remove(id)
+    .then(deleted => {
+        if (deleted) {
+            res.status(204).end();
+        }
+        else {
+            res.status(404).json({
+                errorMessage: "The project with the specified ID does not exist."
+            })
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            errorMessage: "the project could not be deleted"
+        })
+    })
+});
+
+
 const port = process.env.PORT || 4000;
 
 server.listen(port, () => 

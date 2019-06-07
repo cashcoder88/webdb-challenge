@@ -4,7 +4,8 @@ const db = require('./dbConfig.js');
 module.exports = {
     addProject,
     // addAction,
-    getProjects
+    getProjects,
+    remove
 }
 
 
@@ -17,6 +18,12 @@ function addProject(project) {
 function getProjects() {
     return db('projects')
 }
+
+function remove(id) {
+    return db('projects')
+      .where('id', id)
+      .del();
+  }
 // function getDishes() {
 //     return db('dishes');
 // }
