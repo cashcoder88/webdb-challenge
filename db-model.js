@@ -3,7 +3,7 @@ const db = require('./dbConfig.js');
 
 module.exports = {
     addProject,
-    addAction,
+    // addAction,
     getProjects
 }
 
@@ -11,11 +11,12 @@ module.exports = {
 function addProject(project) {
     return db('projects')
     .insert(project, 'id')
+
 } 
 
-// function getProjects() {
-
-// }
+function getProjects() {
+    return db('projects')
+}
 // function getDishes() {
 //     return db('dishes');
 // }
