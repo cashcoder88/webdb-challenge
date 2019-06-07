@@ -3,9 +3,10 @@ const db = require('./dbConfig.js');
 
 module.exports = {
     addProject,
-    // addAction,
+    addAction,
     getProjects,
-    remove
+    remove,
+    getActions
 }
 
 
@@ -19,11 +20,20 @@ function getProjects() {
     return db('projects')
 }
 
+function getActions() {
+    return db('actions')
+}
+
 function remove(id) {
     return db('projects')
       .where('id', id)
       .del();
-  }
+}
+
+function addAction(action) {
+    return db('actions')
+    .insert(action, 'id')
+}
 // function getDishes() {
 //     return db('dishes');
 // }

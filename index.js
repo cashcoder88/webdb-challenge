@@ -18,6 +18,18 @@ server.get('/projects', (req, res) => {
     })
 });
 
+server.get('/actions', (req, res) => {
+    database.getActions()
+    .then(action => {
+        res.status(200).json(action)
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: 'could not retrieve projects'
+        })
+    })
+});
+
 
 server.post('/projects', (req, res) => {
     const {name, description} = req.body;
@@ -41,7 +53,25 @@ server.post('/projects', (req, res) => {
 });
 
 server.post('/actions', (req, res) => {
-    
+    const {notes, description} = req.body;
+    const projectId = req.body.project_id;
+    const actionInfo = req.body;
+    if (!notes || !description || !projectId) {
+        res.status(400).json({
+            errorMessage: 'Please provide notes and description of action, as well as project id'
+        })
+    }
+    else {
+        database.addAction(actionInfo)
+        .then(action => {
+            res.status(201).json(action)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: 'There was an error adding your action to the db'
+            })
+        })
+    }
 });
 
 server.get('/projects/:id', (req, res) => {
